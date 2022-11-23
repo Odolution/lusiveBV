@@ -69,27 +69,50 @@ class Inheritssaleorder(models.Model):
 
 
                     print(min_sup_id.id,'SUP')
-                    choosen_vendor.name= min_sup_id.name.id
+                    choosen_vendor.name= min_sup_id .id
                     choosen_vendor.product_uom= min_sup_id.product_uom
                     choosen_vendor.price = min_sup_id.price
                     choosen_vendor.delay  = min_sup_id.delay
-                    # sup = dict(temp)
+
                     print(min_sup_id)
 
                     min_sup_id.name=temp['vendor']
                     min_sup_id.product_uom=temp['uom']
                     min_sup_id.price=temp['price_cus']
                     min_sup_id.delay=temp['date']
-                # else:
+                else:
+
+
+                    temp3 = {
+                        "name":  min_sup_id.name,
+                        "product_uom":min_sup_id.product_uom,
+                        "price": min_sup_id.price,
+                        "delay": 1
+                    }
+                    print(temp3, 'temp3 dic')
+                    product.seller_ids = [(0, 0, temp3)]
+
+                    # min_sup_id = self.env['product.supplierinfo'].search([('id', '=', var2)])
+                    # print(min_sup_id.id, 'SUP')
+                    # line.name = min_sup_id.name.id
+                    # line.product_uom = min_sup_id.product_uom
+                    # line.price = min_sup_id.price
+                    # line.delay = min_sup_id.delay
+                    #
+                    # print(min_sup_id)
+
+                    min_sup_id.name = i.vendor_id.id
+                    min_sup_id.product_uom =  i.product_uom.id,
+                    # min_sup_id.price = ,
+                    min_sup_id.delay =1
+                #     line.seller_ids = [(0, 0,  {
+                #         "name": line.name,
+                #         "product_uom": line.product_uom,
+                #         "price": line.price,
+                #         # "delay": line.delay
                 #
-                #     temp2 = {
-                #         "name": i.vendor_id.id,
-                #         "product_uom": 'Unit',
-                #         "price": 0.00,
-                #         "delay": 1
-                #     }
-                #     print(temp2, 'temp2 dic')
-                #     product.seller_ids = [(0, 0, temp2)]
+                # })]
+
 
 
 
