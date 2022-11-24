@@ -35,8 +35,8 @@
                 <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']" position="after">
 
 
-                     <field  name="url_pr"/>
-                     <field  name="lead_time"/>
+                     <field  name="url_pr" string="URL"/>
+                     <field  name="lead_time" string="Lead Time"/>
 
 
                 </xpath>
