@@ -7,17 +7,20 @@ import datetime
 from odoo.exceptions import ValidationError
 
 
-class InheritSaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
-
-    vendor_id = fields.Many2one(comodel_name='res.partner',
-                                string="Vendor")
-
-    url = fields.Char(stirng='URl')
+# class InheritSaleOrderLine(models.Model):
+#     _inherit = 'sale.order.line'
+#
+#     vendor_id = fields.Many2one(comodel_name='res.partner',
+#                                 string="Vendor")
+#
+#     url = fields.Char(stirng='URl')
+#     leadtime = fields.Char(stirng='Lead Time')
 
 
 class Inheritssaleorder(models.Model):
     _inherit = 'sale.order'
+
+
 
     def action_confirm(self):
 
@@ -26,6 +29,7 @@ class Inheritssaleorder(models.Model):
         for i in self.order_line:
 
             product = self.env['product.product'].search([('id', '=', i.product_id.id)])
+
 
             temp = []
             for j in product.seller_ids:
@@ -51,5 +55,12 @@ class Inheritssaleorder(models.Model):
 
 
 
+        res=super(Inheritssaleorder, self).action_confirm()
 
-        return super(Inheritssaleorder, self).action_confirm()
+        return res
+
+
+
+
+
+
