@@ -24,18 +24,20 @@ class InheritSaleOrderLine(models.Model):
 class InheritPurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    url_pr = fields.Char('Url', compute='_compute_valuefrom_saleline')
-    lead_time = fields.Char('Lead_Time',compute='_compute_valuefrom_saleline')
+    url_pr = fields.Char('Url')
+    lead_time = fields.Char('Lead_Time')
 
 
 
     def _compute_valuefrom_saleline(self):
         # pol = self.order_id
-        so=self.order_id._get_sale_orders().ids
 
 
         for line in self:
-
+            so = line.order_id._get_sale_orders().ids
+            print(so)
+            so = max(so)
+            print(so)
             sol = self.env["sale.order.line"].search(
                 [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
 
