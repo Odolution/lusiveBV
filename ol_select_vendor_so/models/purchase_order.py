@@ -35,16 +35,20 @@ class InheritPurchaseOrderLine(models.Model):
 
         for line in self:
             so = line.order_id._get_sale_orders().ids
-            print(so)
-            so = max(so)
-            print(so)
-            sol = self.env["sale.order.line"].search(
-                [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
+            sol=None
+            if len(so)==1:
+                sol = self.env["sale.order.line"].search(
+                    [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
 
-            for sline in sol:
+            elif len(so)>0:
+                so = max(so)
+                sol = self.env["sale.order.line"].search(
+                    [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
+            if sol:
+                for sline in sol:
 
-                line.url_pr = sline.url
-                line.lead_time = sline.leadtime
+                    line.url_pr = sline.url
+                    line.lead_time = sline.leadtime
 
 
 
