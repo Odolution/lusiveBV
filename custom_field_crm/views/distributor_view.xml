@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<record id="crm_lead_view_form_inherit" model="ir.ui.view">
+    <field name="name">crm_lead_form</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='lead']" position="after">
+          <page name="instruction" string="Instruction Tab">
+            <group>
+              <group>
+                <field name="availability"/>
+                <field name="with_whom"/>
+                <field name="how_long"/>
+                <field name="alone_or_two"/>
+                <field name="contact_person"/>
+               </group>
+               <group>
+                <field name="location_material"/>
+                <field name="material_and_tools_ids" widget='many2many_tags' domain="[('detailed_type','=',
+                'product')]"/>
+                <field name="consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
+                'consu')]"/>
+                <field name="todos"/>
+                <field name="extra_information"/>
+               </group>
+               <field name='resource_ids'>
+              <tree editable='bottom'>
+                <field name="user_id"/>
+                <field name="days"/>
+              </tree>
+              <form>
+                <group>
+                  <field name="user_id"/>
+                  <field name="days"/>
+                </group>
+              </form>
+           </field>
+              
+                
+            </group>
+          </page>
+          
+        </xpath>
+    </field>
+</record>
+
+<!-- <record id="sale_order_view_form_inherit_tree" model="ir.ui.view">
+    <field name="name">sale.order.form.tree</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml">
+     <xpath expr="//page[@name='instruction']" position="after">
+        <page name="resources" string="Resources">
+           <field name='reso_ids'>
+              <tree>
+                <field name="reso"/>
+                <field name="days"/>
+              </tree>
+              <form>
+                <group>
+                  <field name="reso"/>
+                  <field name="days"/>
+                </group>
+              </form>
+           </field>
+          </page>
+     </xpath> -->
+        
+    <!-- </field>
+</record> -->
+
+<!-- <record id="project_view_form_inherit" model="ir.ui.view">
+    <field name="name">project.project.form</field>
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.edit_project"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='settings']" position="after">
+          <page name="Sample" string="Notes">
+            <group>
+              <field name="custom_note"/>
+            </group>
+          </page>
+        </xpath>
+    </field>
+</record> -->
+
+</odoo>
