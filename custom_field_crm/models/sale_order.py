@@ -3,7 +3,6 @@ from odoo.exceptions import UserError
 class crm(models.Model):
     _inherit='crm.lead'
 
-    availability= fields.Datetime(string = 'Customer Availability')
     with_whom= fields.Char(string = 'With Whom')
     how_long= fields.Char(string = 'How Long')
     alone_or_two= fields.Char(string = 'Alone Or With 2')
@@ -15,8 +14,9 @@ class crm(models.Model):
     # consumable_ids= fields.Many2many('product.product', string='Consumable')
     consumable_ids = fields.Many2many('product.product', 'product_product_costum')
 
-
     resource_ids=fields.One2many('user.resources','crm_id',string='Resource_Id')
+    date_ids=fields.One2many('user.resources','crm_id',string='Date')
+    
     
     # @api.onchange('partner_id')
     # def item_delivered_ids_onchange(self):
@@ -38,6 +38,10 @@ class newfield(models.Model):
     user_id= fields.Many2one('res.users', string='Resources')
     days= fields.Integer(string = 'Days')
     crm_id=fields.Many2one('crm.lead', string='crm')
+    date= fields.Date(string = 'Customer Availability Date')
+    from_time=fields.Float(string='From')
+    to_time=fields.Float(string='To')
+    
 
 # class project(models.Model):
 #     _inherit='project.project'
