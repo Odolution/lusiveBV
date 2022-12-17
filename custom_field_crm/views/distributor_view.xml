@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-
+<!-- crm model instruction tab -->
 <record id="crm_lead_view_form_inherit" model="ir.ui.view">
     <field name="name">crm_lead_form</field>
     <field name="model">crm.lead</field>
@@ -58,45 +58,127 @@
         </xpath>
     </field>
 </record>
+<!-- crm model instruction tab ends here -->
 
-<!-- <record id="sale_order_view_form_inherit_tree" model="ir.ui.view">
-    <field name="name">sale.order.form.tree</field>
-    <field name="model">crm.lead</field>
-    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+
+
+<!-- sale model instruction tab ends -->
+<record id="sale_order_form_inherit" model="ir.ui.view">
+    <field name="name">sale.order.form</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
     <field name="arch" type="xml">
-     <xpath expr="//page[@name='instruction']" position="after">
-        <page name="resources" string="Resources">
-           <field name='reso_ids'>
-              <tree>
-                <field name="reso"/>
+        <xpath expr="//page[@name='customer_signature']" position="after">
+          <page name="instruction_tab" string="Instruction Tab">
+             <group>
+              <group>
+                <field name="sale_with_whom"/>
+                <field name="sale_how_long"/>
+                <field name="sale_alone_or_two"/>
+                <field name="sale_contact_person"/>
+               </group>
+               <group>
+                <field name="sale_location_material"/>
+                <field name="sale_material_and_tools_ids" widget='many2many_tags' domain="[('detailed_type','=',
+                'product')]"/>
+                <field name="sale_consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
+                'consu')]"/>
+                <field name="sale_todos"/>
+                <field name="sale_extra_information"/>
+               </group>
+                 <field name='sale_resource_ids'>
+              <tree editable='bottom'>
+                <field name="user_id"/>
                 <field name="days"/>
               </tree>
-              <form>
+              <!-- <form>
                 <group>
-                  <field name="reso"/>
-                  <field name="days"/>
+                  <field name="sale_user_id"/>
+                  <field name="sale_days"/>
                 </group>
-              </form>
+              </form> -->
+              </field>
+              <field name='sale_date_ids'>
+              <tree editable='bottom'>
+                 <field name="date"/>
+                 <field name="from_time" widget="float_time"/>
+                 <field name="to_time" widget="float_time"/>
+              </tree>
+              <!-- <form>
+                <group>
+                   <field name="sale_date"/>
+                 <field name="sale_from_time" widget="float_time"/>
+                 <field name="sale_to_time" widget="float_time"/>
+                </group>
+              </form> -->
            </field>
+                
+            </group>
           </page>
-     </xpath> -->
-        
-    <!-- </field>
-</record> -->
+        </xpath>
+    </field>
+</record>
+<!-- sale model instruction tab ends here -->
 
-<!-- <record id="project_view_form_inherit" model="ir.ui.view">
+
+
+
+<!-- project model instruction tab ends -->
+<record id="project_view_form_inherit" model="ir.ui.view">
     <field name="name">project.project.form</field>
     <field name="model">project.project</field>
     <field name="inherit_id" ref="project.edit_project"/>
     <field name="arch" type="xml">
         <xpath expr="//page[@name='settings']" position="after">
-          <page name="Sample" string="Notes">
-            <group>
-              <field name="custom_note"/>
+          <page name="instruction_tab" string="Instruction Tab">
+             <group>
+              <group>
+                <field name="project_with_whom"/>
+                <field name="project_how_long"/>
+                <field name="project_alone_or_two"/>
+                <field name="project_contact_person"/>
+               </group>
+               <group>
+                <field name="project_location_material"/>
+                <field name="project_material_and_tools_ids" widget='many2many_tags' domain="[('detailed_type','=',
+                'product')]"/>
+                <field name="project_consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
+                'consu')]"/>
+                <field name="project_todos"/>
+                <field name="project_extra_information"/>
+               </group>
+                 <field name='project_resource_ids'>
+              <tree editable='bottom'>
+                <field name="user_id"/>
+                <field name="days"/>
+              </tree>
+              <form>
+                <group>
+                  <field name="user_id"/>
+                  <field name="days"/>
+                </group>
+              </form>
+              </field>
+              <field name='project_date_ids'>
+              <tree editable='bottom'>
+                 <field name="date"/>
+                 <field name="from_time" widget="float_time"/>
+                 <field name="to_time" widget="float_time"/>
+              </tree>
+              <!-- <form>
+                <group>
+                   <field name="project_date"/>
+                 <field name="project_from_time" widget="float_time"/>
+                 <field name="project_to_time" widget="float_time"/>
+                </group>
+              </form>  -->
+           </field>
+                
             </group>
           </page>
         </xpath>
     </field>
-</record> -->
+</record>
+<!-- project model instruction tab ends here -->
 
 </odoo>
