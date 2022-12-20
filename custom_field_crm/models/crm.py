@@ -5,6 +5,9 @@ from odoo.exceptions import UserError
 class crm(models.Model):
     _inherit='crm.lead'
 
+
+    invoice=fields.Many2one('res.partner', string='Invoice')
+    delivery=fields.Many2one('res.partner', string='Delivery')
     contact_person= fields.Text(string = 'Contact Person')
     todos= fields.Html(string = 'Todos')
     
@@ -50,7 +53,13 @@ class sale(models.Model):
     sale_consumable_ids = fields.Many2many('product.product', 'product_product_custom' , string='Consumable' , related='opportunity_id.consumable_ids')  
     sale_material_ids=fields.Many2many('material.tools',string='Material' , related='opportunity_id.material_ids')
     sale_resource_ids=fields.One2many('user.resources',string='Resource Id',related='opportunity_id.resource_ids')
-    sale_date_ids=fields.One2many('user.resources',string='Date' ,related='opportunity_id.date_ids' )            
+    sale_date_ids=fields.One2many('user.resources',string='Date' ,related='opportunity_id.date_ids' )   
+
+    @api.onchange('opportunity_id')
+    def opportunity_ids_onchange(self):
+        for rec in self:
+                    rec["partner_invoice_id"]=self.opportunity_id.invoice
+                    rec["partner_shipping_id"]=self.opportunity_id.delivery         
 
 
 # project model

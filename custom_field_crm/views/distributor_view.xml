@@ -7,6 +7,10 @@
     <field name="model">crm.lead</field>
     <field name="inherit_id" ref="crm.crm_lead_view_form"/>
     <field name="arch" type="xml">
+       <xpath expr="//label[@for='email_from']" position="before">
+             <field name="invoice"/>
+             <field name="delivery"/>
+        </xpath>
         <xpath expr="//page[@name='lead']" position="after">
           <page name="instruction" string="Instruction Tab">
             <group>
@@ -62,6 +66,10 @@
     <field name="model">sale.order</field>
     <field name="inherit_id" ref="sale.view_order_form"/>
     <field name="arch" type="xml">
+       <!-- <xpath expr="//field[@name='partner_id']" position="after">
+             <field name="partner_invoice_id"/>
+             <field name="partner_shipping_id"/>
+        </xpath> -->
         <xpath expr="//page[@name='customer_signature']" position="after">
           <page name="instruction_tab" string="Instruction Tab">
              <group>
@@ -166,5 +174,15 @@
     </field>
 </record>
 <!-- project model instruction tab ends here -->
+
+<!-- <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+    <field name="name">crm_lead_form</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml">
+        
+    </field>
+</record> -->
+
 
 </odoo>
