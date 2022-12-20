@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access.user.resources,access_user_resources,custom_field_crm.model_user_resources,base.group_user,1,1,1,1
+access.material.tools,access_material_tools,custom_field_crm.model_material_tools,base.group_user,1,1,1,1

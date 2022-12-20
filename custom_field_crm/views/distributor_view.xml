@@ -11,31 +11,25 @@
           <page name="instruction" string="Instruction Tab">
             <group>
               <group>
-                <field name="with_whom"/>
-                <field name="how_long"/>
-                <field name="alone_or_two"/>
                 <field name="contact_person"/>
-               </group>
-               <group>
-                <field name="location_material"/>
-                <field name="material_and_tools_ids" widget='many2many_tags' domain="[('detailed_type','=',
-                'product')]"/>
+                <field name='material_ids' widget = "many2many_tags"/>
                 <field name="consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
                 'consu')]"/>
-                <field name="todos"/>
-                <field name="extra_information"/>
                </group>
+               <group>
+                <field name="todos"/>
+               </group>
+               <!-- <field name='material_ids' widget = "many2many_tags"> -->
+                <!-- <tree editable='bottom'> -->
+                  <!-- <field name="material_and_tools_ids"/> -->
+                <!-- </tree> -->
+               <!-- </field> -->
                <field name='resource_ids'>
               <tree editable='bottom'>
                 <field name="user_id"/>
-                <field name="days"/>
+                <field name="hours" widget="float_time"/>
+                <field name="information"/>
               </tree>
-              <form>
-                <group>
-                  <field name="user_id"/>
-                  <field name="days"/>
-                </group>
-              </form>
               </field>
               <field name='date_ids'>
               <tree editable='bottom'>
@@ -72,24 +66,20 @@
           <page name="instruction_tab" string="Instruction Tab">
              <group>
               <group>
-                <field name="sale_with_whom"/>
-                <field name="sale_how_long"/>
-                <field name="sale_alone_or_two"/>
                 <field name="sale_contact_person"/>
-               </group>
-               <group>
-                <field name="sale_location_material"/>
-                <field name="sale_material_and_tools_ids" widget='many2many_tags' domain="[('detailed_type','=',
-                'product')]"/>
+                <field name="sale_material_ids" widget = "many2many_tags" />
                 <field name="sale_consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
                 'consu')]"/>
+               </group>
+               <group>
+                
                 <field name="sale_todos"/>
-                <field name="sale_extra_information"/>
                </group>
                  <field name='sale_resource_ids'>
               <tree editable='bottom'>
                 <field name="user_id"/>
-                <field name="days"/>
+                <field name="hours"/>
+                <field name="information"/>
               </tree>
               <!-- <form>
                 <group>
@@ -133,29 +123,25 @@
           <page name="instruction_tab" string="Instruction Tab">
              <group>
               <group>
-                <field name="project_with_whom"/>
-                <field name="project_how_long"/>
-                <field name="project_alone_or_two"/>
                 <field name="project_contact_person"/>
-               </group>
-               <group>
-                <field name="project_location_material"/>
-                <field name="project_material_and_tools_ids" widget='many2many_tags' domain="[('detailed_type','=',
-                'product')]"/>
+                <field name="project_material_ids" widget = "many2many_tags"/>
                 <field name="project_consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
                 'consu')]"/>
+               </group>
+               <group>
+                
                 <field name="project_todos"/>
-                <field name="project_extra_information"/>
                </group>
                  <field name='project_resource_ids'>
               <tree editable='bottom'>
                 <field name="user_id"/>
-                <field name="days"/>
+                <field name="hours"/>
+                <field name="information"/>
               </tree>
               <form>
                 <group>
                   <field name="user_id"/>
-                  <field name="days"/>
+                  <field name="hours"/>
                 </group>
               </form>
               </field>
