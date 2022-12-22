@@ -23,11 +23,6 @@
                <group>
                 <field name="todos"/>
                </group>
-               <!-- <field name='material_ids' widget = "many2many_tags"> -->
-                <!-- <tree editable='bottom'> -->
-                  <!-- <field name="material_and_tools_ids"/> -->
-                <!-- </tree> -->
-               <!-- </field> -->
                <field name='resource_ids'>
               <tree editable='bottom'>
                 <field name="user_id"/>
@@ -41,13 +36,6 @@
                  <field name="from_time" widget="float_time"/>
                  <field name="to_time" widget="float_time"/>
               </tree>
-              <form>
-                <group>
-                   <field name="date"/>
-                 <field name="from_time" widget="float_time"/>
-                 <field name="to_time" widget="float_time"/>
-                </group>
-              </form>
            </field>
                 
             </group>
@@ -66,16 +54,12 @@
     <field name="model">sale.order</field>
     <field name="inherit_id" ref="sale.view_order_form"/>
     <field name="arch" type="xml">
-       <!-- <xpath expr="//field[@name='partner_id']" position="after">
-             <field name="partner_invoice_id"/>
-             <field name="partner_shipping_id"/>
-        </xpath> -->
         <xpath expr="//page[@name='customer_signature']" position="after">
           <page name="instruction_tab" string="Instruction Tab">
              <group>
               <group>
                 <field name="sale_contact_person"/>
-                <field name="sale_material_ids" widget = "many2many_tags" />
+                <field name="sale_material_ids" widget = "many2many_tags"/>
                 <field name="sale_consumable_ids" widget='many2many_tags' domain="[('detailed_type','=',
                 'consu')]"/>
                </group>
@@ -89,12 +73,6 @@
                 <field name="hours"/>
                 <field name="information"/>
               </tree>
-              <!-- <form>
-                <group>
-                  <field name="sale_user_id"/>
-                  <field name="sale_days"/>
-                </group>
-              </form> -->
               </field>
               <field name='sale_date_ids'>
               <tree editable='bottom'>
@@ -102,13 +80,6 @@
                  <field name="from_time" widget="float_time"/>
                  <field name="to_time" widget="float_time"/>
               </tree>
-              <!-- <form>
-                <group>
-                   <field name="sale_date"/>
-                 <field name="sale_from_time" widget="float_time"/>
-                 <field name="sale_to_time" widget="float_time"/>
-                </group>
-              </form> -->
            </field>
                 
             </group>
@@ -159,13 +130,6 @@
                  <field name="from_time" widget="float_time"/>
                  <field name="to_time" widget="float_time"/>
               </tree>
-              <!-- <form>
-                <group>
-                   <field name="project_date"/>
-                 <field name="project_from_time" widget="float_time"/>
-                 <field name="project_to_time" widget="float_time"/>
-                </group>
-              </form>  -->
            </field>
                 
             </group>
@@ -174,15 +138,6 @@
     </field>
 </record>
 <!-- project model instruction tab ends here -->
-
-<!-- <record id="crm_lead_view_form_inherit" model="ir.ui.view">
-    <field name="name">crm_lead_form</field>
-    <field name="model">crm.lead</field>
-    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
-    <field name="arch" type="xml">
-        
-    </field>
-</record> -->
 
 
 </odoo>

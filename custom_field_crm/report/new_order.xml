@@ -1,0 +1,113 @@
+<odoo>
+<!-- this create an empty page -->
+
+
+<template id='custom_field_crm.report_sale_order'>
+  <t t-call="web.html_container">
+       <t t-call="web.external_layout">
+       <t t-foreach="docs" t-as="o">
+
+       <table class="table -sm O_main_table" name="inventory">
+         <thead>
+          <tr>
+           <!-- <td> -->
+           <th name="th_packages" class="text-left">
+           <span>No.of Packages</span>
+           </th>
+           <!-- </td> -->
+           <!-- <td> -->
+           <th name="th_desciption" class="text-left">
+           <span>Description</span>
+           </th>
+           <!-- </td> -->
+           <!-- <td> -->
+           <th name="th_total_weight" class="text-left">
+           <span>Total Weight</span>
+           </th>
+           <!-- </td> -->
+           <!-- <td> -->
+           <th name="th_reference_number" class="text-left">
+           <span>Reference Numbers</span>
+           </th>
+           <!-- </td> -->
+           </tr>
+        </thead>
+        <!-- <t t-foreach="docs.move_ids_without_package" t-as='line'>
+        <tr>
+           <td>
+             <span t-field='line.product_id'/>
+            </td>
+            <td>
+             <span t-field='o.partner_id'/>
+            </td>
+
+        </tr>
+        </t> -->
+        </table>
+       
+        <table class="" name="inventory">
+         <thead>
+         <h1>Payments</h1>
+           <tr>
+           <th name="th_payment" class="text-left">
+           <span style="font-size:28px;" >Payments</span>
+           </th>
+           </tr>
+           <tr>
+           <th name="th_shipper" class="text-left">
+           <span>Shipper</span>
+           </th>
+           <td>
+           <span>Date </span>
+           </td>
+           <th name="th_date" class="text-left">
+           <span>Date Recieved</span>
+           </th>
+           <td>
+           <span>De Recie</span>
+           </td>
+           </tr>
+           <tr>
+           <th name="th_recipient" class="text-left">
+           <span>Recipient</span>
+           </th>
+           <td>
+           </td>
+           <th name="th_recieved_by_name" class="text-left">
+           <span>Recieved By (Name)</span>
+           </th>
+           <td>
+           </td>
+           </tr>
+           <tr>
+           <th name="th_delivered_by_name" class="text-left">
+           <span>Delivered (By Name)</span>
+           </th>
+           <td>
+           </td>
+           <th name="th_recieved_by_signature" class="text-left">
+           <span>Recieved By (Signature)</span>
+           </th>
+           <td>
+           </td>
+           </tr>
+           <tr>
+           <th name="th_delivered_by_signature" class="text-left">
+           <span>Delivered (By signature)</span>
+           </th>
+           <td>
+           </td>
+           </tr>
+        </thead>
+        </table>
+
+
+
+
+      </t>  
+     </t>
+  </t>
+</template>
+
+
+</odoo>

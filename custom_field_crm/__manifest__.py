@@ -8,7 +8,9 @@
   'depends':  ['crm' , 'sale_management' , 'sale_crm' , 'project' ,'sale_project'],
   'data':  [
      'security/ir.model.access.csv',
-     'views/distributor_view.xml',  
+     'views/distributor_view.xml',
+    #  'report/new_order.xml',
+    #  'report/report.xml',  
    ],
 
   'demo':[],

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+
+  <report
+        id="report_sale_order"
+        model="stock.picking"
+        report_type="qweb-pdf"
+        string="Sale Order"
+        name="custom_field_crm.report_sale_order"
+        file="custom_field_crm.report_sale_order"
+
+  />
+
+</odoo>

@@ -14,7 +14,7 @@ class crm(models.Model):
     sale_location_material= fields.Text(string = 'Location And Material')
     consumable_ids = fields.Many2many('product.product', 'product_product_costum')
     resource_ids=fields.One2many('user.resources','crm_id',string='Resource Id')
-    date_ids=fields.One2many('user.resources','crm_id',string='Date')
+    date_ids=fields.One2many('user.resources','crm_date_id',string='Date')
     material_ids=fields.Many2many('material.tools',string='Material')
         
 
@@ -26,6 +26,7 @@ class newfield(models.Model):
     hours= fields.Float(string='Hours')
     information= fields.Text(string='Information')
     crm_id=fields.Many2one('crm.lead', string='crm')
+    crm_date_id=fields.Many2one('crm.lead', string='crm')
     date= fields.Date(string = 'Customer Availability Date')
     from_time=fields.Float(string='From')
     to_time=fields.Float(string='To')
@@ -59,7 +60,8 @@ class sale(models.Model):
     def opportunity_ids_onchange(self):
         for rec in self:
                     rec["partner_invoice_id"]=self.opportunity_id.invoice
-                    rec["partner_shipping_id"]=self.opportunity_id.delivery         
+                    rec["partner_shipping_id"]=self.opportunity_id.delivery     
+    
 
 
 # project model
