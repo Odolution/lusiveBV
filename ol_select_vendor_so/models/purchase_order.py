@@ -22,7 +22,12 @@ class InheritSaleOrderLine(models.Model):
             if rec.product_template_id and rec.product_template_id.seller_ids:
                 rec.vendor_id = rec.product_template_id.seller_ids[0].name.id
                 rec.leadtime = rec.product_template_id.seller_ids[0].delay
-
+        if not self.product_template_id:
+            return {'domain': {'vendor_id': []}}
+        this_vendors=[]
+        for line in self.product_template_id.seller_ids:
+            this_vendors.append(line.name.id)
+        return {'domain': {'vendor_id': [('id', 'in', this_vendors)]}}
 
 
 
