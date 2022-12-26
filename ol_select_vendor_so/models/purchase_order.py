@@ -20,7 +20,7 @@ class InheritSaleOrderLine(models.Model):
     def select_default_vendor(self):
         for rec in self:
             if rec.product_template_id and rec.product_template_id.seller_ids:
-                rec.vendor_id = rec.product_template_id.seller_ids[0]
+                rec.vendor_id = rec.product_template_id.seller_ids[0].name.id
                 rec.leadtime = rec.product_template_id.seller_ids[0].delay
 
 
