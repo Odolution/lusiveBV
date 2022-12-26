@@ -16,6 +16,12 @@ class InheritSaleOrderLine(models.Model):
     url = fields.Char(stirng='URl')
     leadtime = fields.Char(stirng='Lead Time')
 
+    @api.onchange("product_template_id")
+    def select_default_vendor(self):
+        for rec in self:
+            if rec.product_template_id and rec.product_template_id.seller_ids:
+                rec.vendor_id = rec.product_template_id.seller_ids[0]
+                rec.leadtime = rec.product_template_id.seller_ids[0].delay
 
 
 
