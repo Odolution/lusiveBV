@@ -16,6 +16,7 @@
             <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']" position="after">
 
                     <field  name="vendor_id" required="0"/>
+                    <field  name="purchase_price" required="0"/>
                     <field  name="url"/>
                     <field  name="leadtime" string="Lead Time"/>
 
