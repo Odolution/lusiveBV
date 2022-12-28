@@ -14,7 +14,7 @@ class Inheritssaleorder(models.Model):
     _inherit = 'sale.order'
 
     def action_confirm(self):
-
+ 
         for i in self.order_line:
 
             product = self.env['product.product'].search([('id', '=', i.product_id.id)])
