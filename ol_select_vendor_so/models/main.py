@@ -13,11 +13,7 @@ from odoo.exceptions import ValidationError
 class Inheritssaleorder(models.Model):
     _inherit = 'sale.order'
 
-
-
     def action_confirm(self):
-
-
 
         for i in self.order_line:
 
