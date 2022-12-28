@@ -15,8 +15,7 @@ class InheritSaleOrderLine(models.Model):
 
     url = fields.Char(string='URl')
     leadtime = fields.Char(string='Lead Time')
-    purchase_price = fields.Float(string='Purchase Price')
-    # purchase_price = fields.Float(string='Purchase Price')
+    item_price = fields.Float(string='Item Price')
     
 
     @api.onchange("product_template_id")
@@ -40,8 +39,7 @@ class InheritPurchaseOrderLine(models.Model):
 
     url_pr = fields.Char(string='Url',compute="_compute_valuefrom_saleline")
     lead_time = fields.Char(string='Lead_Time',compute="_compute_valuefrom_saleline")
-    purchase_price = fields.Float(string='Purchase Price',compute="_compute_valuefrom_saleline")
-    # purchase_price = fields.Float(string='Purchase Price')
+    item_price = fields.Float(string='Item Price',compute="_compute_valuefrom_saleline")
 
     def _compute_valuefrom_saleline(self):
         # pol = self.order_id
@@ -62,7 +60,7 @@ class InheritPurchaseOrderLine(models.Model):
                 for sline in sol:
                     
                     line.url_pr = sline.url
-                    line.purchase_price = sline.purchase_price
+                    line.item_price = sline.item_price
                     
                     line.lead_time = sline.leadtime
 
