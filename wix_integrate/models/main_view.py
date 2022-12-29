@@ -68,7 +68,7 @@ class wix(models.Model):
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        raise UserError(payload)
+        # raise UserError(payload)
         return response
 
     def cretae_Lead(self):
