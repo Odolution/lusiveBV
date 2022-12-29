@@ -84,7 +84,7 @@ class wix(models.Model):
             offset = 0
             while(True):
                 data = ins.api_call(ins.access_token_field,offset)
-                if "contacts" in data.keys():
+                try:
                     for i in data['contacts']:
                         customer = self.env['res.partner'].search([])
                         crm_lead = self.env['crm.lead'].search([])
@@ -162,7 +162,7 @@ class wix(models.Model):
                         else:
                             page = data['pagingMetadata']['hasNext']
                             break    
-                else:
+                except:
                     raise UserError(str(data))
                     break
                 
