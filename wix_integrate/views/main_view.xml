@@ -16,18 +16,18 @@
                             </div>
                             <div class="o_kanban_record_top mb16">
                                 <strong class="o_kanban_record_title">
-                                    <h5>Client ID</h5>
-                                    <field name="cleint_id"></field>
+                                    <h5>Channel</h5>
+                                    <field name="channel"></field>
                                     
                                 </strong>
                             </div>
-                            <div class="o_kanban_record_top mb16">
+                            <!-- <div class="o_kanban_record_top mb16">
                                 <strong class="o_kanban_record_title">
                                     <h5>Client Secret</h5>
                                     <field name="client_secret"></field>
                                     
                                 </strong>
-                            </div>
+                            </div> -->
                             <!-- <div class="o_kanban_record_top mb16" style="text-align: right">
                                 <button
                                 class="oe_button btn-primary" name="refresh_token"
@@ -54,7 +54,7 @@
                 <sheet>
                     <group>
                     <group>
-                    
+                        <field name="channel"></field>
                         <field name="cleint_id"/>
                         <field name="client_secret"/>
                         <field name="updated_date"/>
