@@ -84,83 +84,86 @@ class wix(models.Model):
             offset = 0
             while(True):
                 data = ins.api_call(ins.access_token_field,offset)
-                for i in data['contacts']:
-                    customer = self.env['res.partner'].search([])
-                    crm_lead = self.env['crm.lead'].search([])
-                    wix_d = i['updatedDate'].split("T")
-                    time_split = wix_d[1].split(".")
-                    p = wix_d[0]+" "+time_split[0]
-                    
-                    wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
-                    
-                    
-                    odo_date= ins.updated_date
-                    if wix_date > odo_date: 
-                        #if customer Exist
-                        cus_exist = ins.check_customer(i['id'],customer)
+                if data:
+                    for i in data['contacts']:
+                        customer = self.env['res.partner'].search([])
+                        crm_lead = self.env['crm.lead'].search([])
+                        wix_d = i['updatedDate'].split("T")
+                        time_split = wix_d[1].split(".")
+                        p = wix_d[0]+" "+time_split[0]
                         
-                        if cus_exist[0]:
-                            # check crm Lead
-                            crm_l = ins.check_Lead(i['id'],crm_lead)
+                        wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
+                        
+                        
+                        odo_date= ins.updated_date
+                        if wix_date > odo_date: 
+                            #if customer Exist
+                            cus_exist = ins.check_customer(i['id'],customer)
                             
-                            if crm_l[0]:
-                                pass
-                            else:
-                                for k in crm_l[1]:
-                                    crm_dic = {
-                                        'wix_ids':k.wix_id, 
-                                        'partner_id':k.id,
-                                        'name':str(k.zip)+" "+str(k.city)+" "+str(k.street) +" | "+str(k.name),
-                                        'channel':ins.channel,
-                                        }
-                                    
-                                    s =crm_lead.create(crm_dic)
-                 
-                                #create Lead
-                        else:
-                            
-                            #customer create
-                            a= i.get('info')
-                            dic ={
-                                'wix_id':i['id']
-                                }
-                            
-                            if 'name' in a:
-                                if 'last' in a['name']:
-                                    dic['name'] = a['name']['first'] +" "+ a['name']['last']    
-                                else:
-                                    dic['name'] = a['name']['first']
-
-                                items_email = a['emails']['items']
-                                dic['email'] = items_email[0]['email']
-                                if 'phones' in a:
-                                    items_phone = a['phones']['items']
-                                    dic['phone'] = items_phone[0]['phone']
-                                if 'addresses' in a:
-                                    add = a['addresses']['items']
-                                    address = add[0]['address']
-                                    dic['street'] = address['addressLine']
-                                    dic['zip'] = address['postalCode']
-                                if 'city' in address:
-                                    dic['city'] = address['city']
-                                id = customer.create(dic)
-                                #crm create
+                            if cus_exist[0]:
+                                # check crm Lead
                                 crm_l = ins.check_Lead(i['id'],crm_lead)
+                                
                                 if crm_l[0]:
                                     pass
                                 else:
-                                    crm_dic ={
-                                    'wix_ids':id.wix_id,
-                                    'partner_id':id.id,
-                                    'name': str(id.zip)+" "+str(id.city)+" "+str(id.street) +" | "+ str(id.name),
-                                    'channel':ins.channel
-                                    }
-                                    
-                                    l=crm_lead.create(crm_dic)
+                                    for k in crm_l[1]:
+                                        crm_dic = {
+                                            'wix_ids':k.wix_id, 
+                                            'partner_id':k.id,
+                                            'name':str(k.zip)+" "+str(k.city)+" "+str(k.street) +" | "+str(k.name),
+                                            'channel':ins.channel,
+                                            }
+                                        
+                                        s =crm_lead.create(crm_dic)
                     
-                    else:
-                        page = data['pagingMetadata']['hasNext']
-                        break                      
+                                    #create Lead
+                            else:
+                                
+                                #customer create
+                                a= i.get('info')
+                                dic ={
+                                    'wix_id':i['id']
+                                    }
+                                
+                                if 'name' in a:
+                                    if 'last' in a['name']:
+                                        dic['name'] = a['name']['first'] +" "+ a['name']['last']    
+                                    else:
+                                        dic['name'] = a['name']['first']
+
+                                    items_email = a['emails']['items']
+                                    dic['email'] = items_email[0]['email']
+                                    if 'phones' in a:
+                                        items_phone = a['phones']['items']
+                                        dic['phone'] = items_phone[0]['phone']
+                                    if 'addresses' in a:
+                                        add = a['addresses']['items']
+                                        address = add[0]['address']
+                                        dic['street'] = address['addressLine']
+                                        dic['zip'] = address['postalCode']
+                                    if 'city' in address:
+                                        dic['city'] = address['city']
+                                    id = customer.create(dic)
+                                    #crm create
+                                    crm_l = ins.check_Lead(i['id'],crm_lead)
+                                    if crm_l[0]:
+                                        pass
+                                    else:
+                                        crm_dic ={
+                                        'wix_ids':id.wix_id,
+                                        'partner_id':id.id,
+                                        'name': str(id.zip)+" "+str(id.city)+" "+str(id.street) +" | "+ str(id.name),
+                                        'channel':ins.channel
+                                        }
+                                        
+                                        l=crm_lead.create(crm_dic)
+                    
+                        else:
+                            page = data['pagingMetadata']['hasNext']
+                            break    
+                else:
+                    break
                 
                 if page != False:
                     offset=offset+250
