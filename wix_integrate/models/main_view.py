@@ -84,6 +84,7 @@ class wix(models.Model):
             offset = 0
             while(True):
                 data = ins.api_call(ins.access_token_field,offset)
+                raise UserError(str(data))
                 if "contacts" in data.keys():
                     for i in data['contacts']:
                         customer = self.env['res.partner'].search([])
