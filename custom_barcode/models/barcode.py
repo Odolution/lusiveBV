@@ -11,6 +11,7 @@ class producttmpl_location(models.Model):
 
     def compute_location(self):
         for rec in self:
+            rec.put_away_location=False
             products=self.env["product.product"].search([("product_tmpl_id","=",rec.id)])
             if products:
                 putaways=self.env["stock.putaway.rule"].search([("product_id",'=',products[0].id)])
@@ -26,7 +27,7 @@ class productprd_location(models.Model):
 
     def compute_location(self):
         for rec in self:
+            rec.put_away_location=False
             putaways=self.env["stock.putaway.rule"].search([("product_id",'=',rec.id)])
             if putaways:
-                raise UserError(putaways[0].location_out_id.id)
                 rec.put_away_location=putaways[0].location_out_id.id
