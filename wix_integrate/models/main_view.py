@@ -64,7 +64,7 @@ class wix(models.Model):
         })
         headers = {
         'Content-Type': 'application/json',
-  'Cookie': 'XSRF-TOKEN=1672311367|3HT81cy5mV15'
+        'Cookie': 'XSRF-TOKEN=1672311367|3HT81cy5mV15'
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
@@ -84,7 +84,7 @@ class wix(models.Model):
             offset = 0
             while(True):
                 data = ins.api_call(ins.access_token_field,offset)
-                if data:
+                if "contacts" in data.keys():
                     for i in data['contacts']:
                         customer = self.env['res.partner'].search([])
                         crm_lead = self.env['crm.lead'].search([])
