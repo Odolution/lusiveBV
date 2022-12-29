@@ -19,7 +19,7 @@ class wix(models.Model):
     client_secret = fields.Char("Client Secret")
     access_token_field = fields.Char("Token")
     updated_date = fields.Datetime("Updated Date")
-    refresh_token = fields.Html("Refresh Token")
+    refresh_token = fields.Char("Refresh Token")
     channel = fields.Char('Channel')
     
     def api_call(self,vals,offset):
@@ -67,14 +67,14 @@ class wix(models.Model):
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        raise UserError(payload)
+        # raise UserError(payload)
         return response
 
     def cretae_Lead(self):
         instances = self.env['wix.crm'].search([])
         for ins in instances:
             token = self.access_token(ins.cleint_id,ins.client_secret,ins.refresh_token)
-            raise UserError(str(token))
+            # raise UserError(str(token))
             ins["access_token_field"] = token['access_token'] 
             customer = self.env['res.partner'].search([])
             crm_lead = self.env['crm.lead'].search([])
