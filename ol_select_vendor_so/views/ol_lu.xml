@@ -3,30 +3,26 @@
 <odoo>
     <data>
 
+    <record model="ir.ui.view" id="view_inherit_sale_order_line_form_for_vendor">
+        <field name="name">sale.order.line.add.vender</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']" position="after">
+
+                    <field  name="vendor_id" required="0"/>
+                    <field  name="item_price" />
+                    <field  name="url" />
+                    <field  name="leadtime" string="Lead Time"/>
+
+            </xpath>
+        </field>
+     </record>
 
 
 
-
-<record model="ir.ui.view" id="view_inherit_sale_order_line_form_for_vendor">
-            <field name="name">sale.order.line.add.vender</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form"/>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']" position="after">
-
-                     <field  name="vendor_id" required="0"/>
-                     <field  name="url"/>
-                     <field  name="leadtime" string="Lead Time"/>
-
-
-                </xpath>
-            </field>
-        </record>
-
-
-
-<record model="ir.ui.view" id="view_inherit_purchase_order_line_form_for">
+        <record model="ir.ui.view" id="view_inherit_purchase_order_line_form_for">
             <field name="name">purchase.order.line.add.vender</field>
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
@@ -36,6 +32,7 @@
 
 
                      <field  name="url_pr" string="URL"/>
+                     <field  name="item_price" string="Item Price"/>
                      <field  name="lead_time" string="Lead Time"/>
 
 
@@ -45,6 +42,11 @@
 
             </field>
         </record>
+
+
+
+
+
 
     </data>
 </odoo>

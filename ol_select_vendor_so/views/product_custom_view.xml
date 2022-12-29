@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_checkbox_custom" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']//field[@name='taxes_id']" position="after">
+           
+                    <field name="auto_purchase" string="Auto Purchase" />
+                    
+                </xpath>  
+            </field>
+        </record>
+
+        <record id="product_product_checkbox_custom" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']//field[@name='taxes_id']" position="after">
+           
+                    <field name="auto_purchase" string="Auto Purchase" />
+                    
+                </xpath>  
+            </field>
+        </record>
+
+
+        <record id="purchase_order_icon" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <button name="purchase_icon_show" type="object" class="oe_stat_button"
+                        icon="fa-usd" attrs="{'invisible': [('pos_count', '=', 0)]}">
+                    <field name="pos_count" widget="statinfo" string="Purchase Order"/>
+                </button>
+                
+            </xpath>
+            
+           
+            
+        </field>
+    </record>
+    </data>
+</odoo>

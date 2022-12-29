@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 from . import main
 from . import purchase_order
+from . import product_modification
