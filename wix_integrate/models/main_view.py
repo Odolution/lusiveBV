@@ -75,6 +75,7 @@ class wix(models.Model):
         instances = self.env['wix.crm'].search([])
         for ins in instances:
             token = self.access_token(ins.cleint_id,ins.client_secret,ins.refresh_token)
+            raise UserError(str(token))
             ins["access_token_field"] = token['access_token'] 
             customer = self.env['res.partner'].search([])
             crm_lead = self.env['crm.lead'].search([])
