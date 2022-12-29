@@ -37,34 +37,32 @@ class InheritSaleOrderLine(models.Model):
 class InheritPurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    url_pr = fields.Char(string='Url',compute="_compute_valuefrom_saleline")
-    lead_time = fields.Char(string='Lead_Time',compute="_compute_valuefrom_saleline")
-    item_price = fields.Float(string='Item Price',compute="_compute_valuefrom_saleline")
+    url_pr = fields.Char(string='Url')
+    lead_time = fields.Char(string='Lead_Time')
+    item_price = fields.Float(string='Item Price')
 
-    def _compute_valuefrom_saleline(self):
-        # pol = self.order_id
+    
 
 
-        for line in self:
-            so = line.order_id._get_sale_orders().ids
-            sol=None
-            if len(so)==1:
-                sol = self.env["sale.order.line"].search(
-                    [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
+    #     for line in self:
+    #         so = line.order_id._get_sale_orders().ids
+    #         sol=None
+    #         if len(so)==1:
+    #             sol = self.env["sale.order.line"].search(
+    #                 [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
 
-            elif len(so)>0:
-                so = max(so)
-                sol = self.env["sale.order.line"].search(
-                    [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
-            if sol:
-                for sline in sol:
+    #         elif len(so)>0:
+    #             so = max(so)
+    #             sol = self.env["sale.order.line"].search(
+    #                 [("order_id", '=',so ), ("product_id", "=", line.product_id.id)])
+    #         if sol:
+    #             for sline in sol:
+    #                 line.url_pr = sline.url if sline.url != "" else ""                    
+    #                 line.item_price = sline.item_price if sline.item_price != float(0) else 0
+    #                 line.lead_time = sline.leadtime if sline.leadtime != "" else ""
                     
-                    line.url_pr = sline.url
-                    line.item_price = sline.item_price
-                    
-                    line.lead_time = sline.leadtime
 
-
+         
 
 
 

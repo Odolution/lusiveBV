@@ -18,6 +18,7 @@
     'depends' : ['purchase','sale'],
     'data': [
         'views/ol_lu.xml',
+        'views/product_custom_view.xml',
 
 
         # 'security/ir.model.access.csv',
