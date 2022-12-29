@@ -64,6 +64,7 @@ class wix(models.Model):
         })
         headers = {
         'Content-Type': 'application/json',
+  'Cookie': 'XSRF-TOKEN=1672311367|3HT81cy5mV15'
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
@@ -74,7 +75,7 @@ class wix(models.Model):
         instances = self.env['wix.crm'].search([])
         for ins in instances:
             token = self.access_token(ins.cleint_id,ins.client_secret,ins.refresh_token)
-            # raise UserError(str(token))
+            raise UserError(str(token))
             ins["access_token_field"] = token['access_token'] 
             customer = self.env['res.partner'].search([])
             crm_lead = self.env['crm.lead'].search([])
