@@ -64,11 +64,10 @@ class wix(models.Model):
         })
         headers = {
         'Content-Type': 'application/json',
-        'Cookie': 'XSRF-TOKEN=1671435121|fbNCGujv2_nT'
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        
+        raise UserError(response.text)
         return response
 
     def cretae_Lead(self):
