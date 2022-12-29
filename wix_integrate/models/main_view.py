@@ -163,7 +163,7 @@ class wix(models.Model):
                             page = data['pagingMetadata']['hasNext']
                             break    
                 except:
-                    raise UserError(str(data))
+                    # raise UserError(str(data))
                     break
                 
                 if page != False:
