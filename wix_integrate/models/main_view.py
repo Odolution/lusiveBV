@@ -74,7 +74,7 @@ class wix(models.Model):
     def cretae_Lead(self):
         instances = self.env['wix.crm'].search([])
         for ins in instances:
-            token = ins.access_token(ins.cleint_id,ins.client_secret,ins.refresh_token)
+            token = self.access_token(ins.cleint_id,ins.client_secret,ins.refresh_token)
             ins.access_token_field = token['access_token'] 
             customer = self.env['res.partner'].search([])
             crm_lead = self.env['crm.lead'].search([])
