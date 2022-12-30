@@ -84,8 +84,8 @@ class Inheritssaleorder(models.Model):
             # raise UserError(str(data))
         
 
-        # res=super(Inheritssaleorder, self).action_confirm()
-        # return res
+        res=super(Inheritssaleorder, self).action_confirm()
+        return res
 
 
     def purchase_icon_show(self):
