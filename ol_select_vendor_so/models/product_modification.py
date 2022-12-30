@@ -5,6 +5,9 @@ class ProductCheckBox(models.Model):
 
     auto_purchase = fields.Boolean(string="auto purchase")
 
+    # def onchange('auto_purchase'):
+
+
 class ProductCheckBox(models.Model):
     _inherit = "product.product"
 
