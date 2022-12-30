@@ -9,6 +9,7 @@
   'data':  [
     #  'security/ir.model.access.csv',
     'views/location_view.xml',
+    'wizard/product_label_layout_views.xml',
     #  'report/new_order.xml',
     #  'report/report.xml',  
      'report/product_bracode.xml',

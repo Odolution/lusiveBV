@@ -2,20 +2,25 @@
 
 <odoo>
    
+   <template id="inherit_report_productlabel_dymo" inherit_id="product.report_productlabel_dymo">
+        <xpath expr="//t[@t-set='barcode_size']" position="replace">
+             <t t-set="barcode_size" t-value="'width:80mm;height:10mm'"/>
+         </xpath> 
+    </template>
    <template id="inherit_report_simple_label_dymo" inherit_id="product.report_simple_label_dymo">
         <xpath expr="//div[@class='o_label_full']" position="replace">
-                    <div class="row">
-                        <div class= "col-12" style="text-align: center;">
+                    <div class="row" style="position:absolute; top:10px;left:60px;">
+                        <div class= "col-12" style="text-align: center; justify-content:center;">
                             <t t-if="barcode" >
                                 <!--`quiet=0` to remove the left and right margins on the barcode -->
                                 <div  t-out="barcode" style="padding:0" t-options="{'widget': 'barcode', 'quiet': 3, 'symbology': 'auto', 'img_style': barcode_size}"/>
                                 <div class="o_label_name" style="background-color: transparent;line-height: 0.8; text-align: center;">
-                                    <span style=" font-size:12px;" t-out="barcode"/>
+                                    <!-- <span style=" font-size:12px;  justify-content:center;" t-out="barcode"/> -->
+                                    <!-- <br/> -->
+                                    <span style=" font-size:12px;  justify-content:center;" t-if="product.is_product_variant" t-field="product.display_name"/>
+                                    <span style=" font-size:12px;  justify-content:center;" t-else="" t-field="product.name"/>
                                     <br/>
-                                    <span style=" font-size:12px;" t-if="product.is_product_variant" t-field="product.display_name"/>
-                                    <span style=" font-size:12px;" t-else="" t-field="product.name"/>
-                                    <br/>
-                                    <span style="font-size:9px;" t-field="product.put_away_location"/>
+                                    <span style="font-size:9px;  justify-content:center;" t-field="product.put_away_location"/>
                                     
                                 </div>
                             </t>
@@ -51,4 +56,74 @@
             
         </xpath> -->
     </template>
+
+
+    <template id="inherit_report_generic_barcode" inherit_id="stock.report_generic_barcode">
+        <xpath expr="//t [@t-set='nRows']" position="replace">
+                    <t t-set="nRows" t-value="1"/>
+        </xpath>
+        <xpath expr="//t [@t-set='nCols']" position="replace">
+                  <t t-set="nCols" t-value="1"/>  
+        </xpath>
+        <xpath expr="//span [@t-esc='o.name']" position="replace">
+                    
+        </xpath>
+        <xpath expr="//t [@t-if='title']" position="replace">
+                    
+        </xpath>
+        <xpath expr="//div[@t-field='o.barcode']" position="replace">            
+              
+         
+         <div style="text-align:center; justify-content:center; margin-top:10px; margin-left:30px;">    
+         <div style= "width: 100%; height: 10px;"/>
+         <div t-if="o.barcode" t-field="o.barcode" t-options="{'widget': 'barcode', 'humanreadable': 0, 'width': 300, 'height': 50}"/>
+         <span  style="font-size:9px;" t-esc="o.complete_name"></span>
+          
+  </div> 
+        </xpath>
+        
+    </template>
+
+    <!-- <template id="inherit_report_generic_barcode" inherit_id="stock.report_generic_barcode">
+        <xpath expr="//div[@class='page article']" position="replace">
+        <table>
+            <t t-foreach="range(nRows)" t-as="row">
+                <tr>
+                    <t t-foreach="range(nCols)" t-as="col">
+                        <t t-set="barcode_index" t-value="(row * nCols + col)"/>
+                        <t t-if="barcode_index &lt; len(page_docs)">
+                            <t t-set="o" t-value="page_docs[barcode_index]"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="o" t-value="page_docs[0]"/>
+                        </t>
+                        <td t-att-style="barcode_index &gt;= len(page_docs) and 'visibility:hidden'">
+    
+                            <div t-if="o.barcode" t-field="o.complete_name" t-options="{'widget': 'barcode', 'humanreadable': 1, 'width': 400, 'height': 100}"/>
+                  
+                        </td>
+                    </t>
+                </tr>
+            </t>
+        </table> -->
+           <!-- <div class="row">
+                        <div class= "col-12" style="text-align: center;">
+                            <t t-if="barcode" >
+                                
+                                <div  t-out="barcode" style="padding:0" t-options="{'widget': 'barcode', 'humanreadable': 1, 'width': 400, 'height': 50}"/>
+                                <div class="o_label_name" style="background-color: transparent;line-height: 0.5; text-align: center;">
+                                    <span style=" font-size:12px;" t-out="barcode"/>
+                                    <br/>
+
+                                    <span style="font-size:9px;" t-field="stock.complete_name"/>
+                                    
+                                </div>
+                            </t>
+                        </div>
+                    </div>     -->
+        <!-- </xpath>
+        
+    </template> -->
+
+    
 </odoo>
