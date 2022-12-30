@@ -22,7 +22,7 @@ class Inheritssaleorder(models.Model):
         self.pos_count = len(self.PO_ids)
 
     def action_confirm(self):
-        raise UserError(str("Custom Purchase Order Method is being called"))
+        # raise UserError(str("Custom Purchase Order Method is being called"))
  
         for i in self.order_line:
 
@@ -78,10 +78,11 @@ class Inheritssaleorder(models.Model):
                 data['product_qty'] = line.product_uom_qty
                 data['price_unit'] = line.price_unit
                 data['order_id']=po.id
+                raise UserError(str(data))
                 pol=self.env['purchase.order.line'].create(data)
 
-        res=super(Inheritssaleorder, self).action_confirm()
-        return res
+        # res=super(Inheritssaleorder, self).action_confirm()
+        # return res
 
 
     def purchase_icon_show(self):
