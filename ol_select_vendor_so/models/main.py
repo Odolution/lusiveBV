@@ -22,6 +22,7 @@ class Inheritssaleorder(models.Model):
         self.pos_count = len(self.PO_ids)
 
     def action_confirm(self):
+        raise UserError(str("Custom Purchase Order Method is being called"))
  
         for i in self.order_line:
 
