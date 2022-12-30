@@ -81,7 +81,6 @@ class Inheritssaleorder(models.Model):
                     data['order_id']=po.id
             
                     pol=self.env['purchase.order.line'].create(data)
-            # raise UserError(str(data))
         
 
         res=super(Inheritssaleorder, self).action_confirm()
