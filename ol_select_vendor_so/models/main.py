@@ -69,8 +69,9 @@ class Inheritssaleorder(models.Model):
             data={}
 
             for line in rec.order_line:
-                raise UserError(line)
+                
                 if line.product_id.auto_purchase:
+                    raise UserError(line.product_id.auto_purchase)
                     po=vendorPOdict[line.vendor_id]
                     data['url_pr'] = line.url
                     data['item_price'] = line.item_price
