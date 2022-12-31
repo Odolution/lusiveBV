@@ -9,6 +9,7 @@
                 <xpath expr="//page[@name='general_information']//field[@name='taxes_id']" position="after">
            
                     <field name="auto_purchase" string="Auto Purchase" />
+                    <field name="allow_all_vendors" string="Allow All Vendors" />
                     
                 </xpath>  
             </field>
@@ -35,7 +36,7 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_view_invoice']" position="after">
                 <button name="purchase_icon_show" type="object" class="oe_stat_button"
-                        icon="fa-usd" attrs="{'invisible': [('pos_count', '=', 0)]}">
+                        icon="fa-credit-card" attrs="{'invisible': [('pos_count', '=', 0)]}">
                     <field name="pos_count" widget="statinfo" string="Purchase Order"/>
                 </button>
                 
@@ -43,6 +44,34 @@
             
            
             
+        </field>
+    </record>
+
+    <record id="sale_order_icon" model="ir.ui.view">
+        <field name="name">purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <button name="sale_icon_show" type="object" class="oe_stat_button"
+                        icon="fa-usd" attrs="{'invisible': [('sos_count', '=', 0)]}">
+                    <field name="sos_count" widget="statinfo" string="Sale Order"/>
+                </button>
+                
+            </xpath>
+            
+           
+            
+        </field>
+    </record>
+
+    <record id="sale_order_inherited_form_purchase" model="ir.ui.view">
+        <field name="name">sale.order.inherited.form.purchase</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_purchase.sale_order_inherited_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_purchase_orders']" position="replace">
+            </xpath>
         </field>
     </record>
     </data>
