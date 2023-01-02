@@ -107,11 +107,14 @@ class wix(models.Model):
                                 pass
                             else:
                                 for k in crm_l[1]:
+                                    zip = ""
+                                    if k.zip or k.city or k.street:
+                                        zip =str(k.zip)+"-"+str(k.city)+"-"+str(k.street)
                                     crm_dic = {
                                         'site_name':self.site_name,
                                         'wix_ids':k.wix_id, 
                                         'partner_id':k.id,
-                                        'name':str(k.zip)+" "+str(k.city)+" "+str(k.street) +" | "+str(k.name) 
+                                        'name': zip +" | "+str(k.name) 
                                         }
 
                                     s =crm_lead.create(crm_dic)
@@ -150,11 +153,14 @@ class wix(models.Model):
                                 if crm_l[0]:
                                     pass
                                 else:
+                                    zip = ""
+                                    if id.zip or id.city or id.street:
+                                        zip =str(id.zip)+"-"+str(id.city)+"-"+str(id.street)
                                     crm_dic ={
                                     'site_name':self.site_name,    
                                     'wix_ids':id.wix_id,
                                     'partner_id':id.id,
-                                    'name': str(id.zip)+" "+str(id.city)+" "+str(id.street) +" | "+ str(id.name)
+                                    'name': zip +" | "+ str(id.name)
                                     }
 
                                     l=crm_lead.create(crm_dic)
