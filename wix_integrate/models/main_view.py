@@ -95,6 +95,7 @@ class wix(models.Model):
 
 
                     odo_date= self.updated_date
+                    
                     if wix_date > odo_date: 
                         #if customer Exist
                         cus_exist = self.check_customer(i['id'],customer)
@@ -116,7 +117,7 @@ class wix(models.Model):
                                         'partner_id':k.id,
                                         'name': zip +" | "+str(k.name) 
                                         }
-
+                                    raise UserError(crm_dic)     
                                     s =crm_lead.create(crm_dic)
                                      
 
@@ -146,7 +147,7 @@ class wix(models.Model):
                                     dic['street'] = address['addressLine']
                                     dic['zip'] = address['postalCode']
                                     dic['city'] = address['city']
-
+                                
                                 id = customer.create(dic)
                                 #crm create
                                 crm_l = self.check_Lead(i['id'],crm_lead)
@@ -162,7 +163,7 @@ class wix(models.Model):
                                     'partner_id':id.id,
                                     'name': zip +" | "+ str(id.name)
                                     }
-
+                                    raise UserError(crm_dic)
                                     l=crm_lead.create(crm_dic)
                                     
                     else:
