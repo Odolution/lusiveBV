@@ -165,6 +165,10 @@ class wix(models.Model):
 
                 if page != False:
                     offset=offset+250
+                else:
+                    self.updated_date =  datetime.now()
+                    break
+                    
             else:
                 self.updated_date =  datetime.now()
                 break            
