@@ -104,7 +104,7 @@ class wix(models.Model):
                         if cus_exist[0]:
                             # check crm Lead
                             crm_l = self.check_Lead(i['id'],crm_lead)
-                            raise UserError(crm_l)
+                            
                             if crm_l[0]:
                                 pass
                             else:
