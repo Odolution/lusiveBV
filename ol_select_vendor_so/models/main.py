@@ -77,33 +77,15 @@ class Inheritssaleorder(models.Model):
             if i.vendor_id not in unique_vendors and i.product_id.auto_purchase:
                 unique_vendors.append(i.vendor_id)
         for vendor in unique_vendors:
-            
-            # existing_po_rfq = self.env['purchase.order'].search([('partner_id','=',vendor.id),('state','=','draft')])
-
-            # raise UserError(type(existing_po_rfq))
-            # if existing_po_rfq:
-            #     po = existing_po_rfq[0]
-            #     vendorPOdict[vendor]=po
-            # else:
             data2={}
             data2['partner_id']= vendor.id
             data2['SO_id']=self.id
             po = self.env['purchase.order'].create(data2)
             po.origin = self.name
             vendorPOdict[vendor]=po
-
-        # for line in self.order_line:
-        #     # raise UserError(line.purchase_line_ids[0])
-        #     for p in line.purchase_line_ids:
-        #         raise UserError(p) 
             
-            
-
-        
         for rec in self:
             for line in rec.order_line:
-                # raise UserError(line)
-                # raise UserError(line.product_id.auto_purchase)
                 if line.product_id.auto_purchase:
                     po=vendorPOdict[line.vendor_id]
                     data={}
@@ -116,10 +98,10 @@ class Inheritssaleorder(models.Model):
                     data['price_unit'] = line.price_unit
                     data['order_id']=po.id
                     pol=self.env['purchase.order.line'].create(data)
-                # for p in line.purchase_order_ids:
-                #     pass 
-        # raise UserError(str(data))
         
+
+        # Custom Project Location
+
 
         res=super(Inheritssaleorder, self).action_confirm()
         return res
@@ -164,6 +146,21 @@ class Inheritssaleorder(models.Model):
         
 
 
+class InheritProject(models.Model):
+    _inherit = "project.project"
+
+    meeting_location = fields.Char(string='Location', compute='_compute_meeting_location')
+
+    def _compute_meeting_location(self):
+        for rec in self:
+            rec.meeting_location = rec.sale_order_id.meeting_location
 
 
+# class InheritProjectTask(models.Model):
+#     _inherit = "project.task"
 
+#     @api.depends('meeting_location')
+#     def _compute_has_complete_partner_address(self):
+#         for task in self:
+#             project = self.env['project.project'].search([('task_ids','=',task.id)])
+#             raise UserError(project) 
