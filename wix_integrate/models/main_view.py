@@ -95,16 +95,16 @@ class wix(models.Model):
                     
                     
                     odo_date= self.updated_date
-                    raise UserError(odo_date)
+                    
                     if wix_date > odo_date: 
                             
                         #if customer Exist
                         cus_exist = self.check_customer(i['id'],customer)
-                        
+                        raise UserError(cus_exist)
                         if cus_exist[0]:
                             # check crm Lead
                             crm_l = self.check_Lead(i['id'],crm_lead)
-
+                            
                             if crm_l[0]:
                                 pass
                             else:
