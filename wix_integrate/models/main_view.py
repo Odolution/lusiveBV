@@ -9,6 +9,7 @@ class Partner(models.Model):
     wix_id = fields.Char("Wix Customer ID")
 class crm(models.Model):
     _inherit = 'crm.lead'
+    site_name = fields.Char("Site Name")
     wix_ids = fields.Char('Wix Opportunity')
 
 class wix(models.Model):
@@ -18,10 +19,11 @@ class wix(models.Model):
     client_secret = fields.Char("Client Secret")
     access_token_field = fields.Char("Token")
     updated_date = fields.Datetime("Updated Date")
-    refresh_token = fields.Html("Refresh Token")
+    refresh_token = fields.Char("Refresh Token")
+    site_name = fields.Char("Site Name")
     
     def api_call(self,vals,offset):
-        url = f"https://www.wixapis.com/contacts/v4/contacts?paging.limit=250&paging.offset={offset}&fieldsets=FULL&sort.fieldName=updatedDate&sort.order=DESC"
+        url = f"https://www.wixapis.com/contacts/v4/contacts?paging.limit=250&paging.offset={offset}&fieldsets=FULL&sort.fieldName=createdDate&sort.order=DESC"
 
         payload={}
         headers = {
@@ -53,7 +55,7 @@ class wix(models.Model):
     def access_token(self,id,sec_id,refresh_token):
         
         url = "https://www.wixapis.com/oauth/access"
-
+        
         payload = json.dumps({
         "grant_type": "refresh_token",
         "client_id": str(id),
@@ -62,7 +64,8 @@ class wix(models.Model):
         })
         headers = {
         'Content-Type': 'application/json',
-        'Cookie': 'XSRF-TOKEN=1671435121|fbNCGujv2_nT'
+        'Cookie': 'XSRF-TOKEN=1672644521|KHzDNH4IffLu'
+        
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
@@ -72,16 +75,18 @@ class wix(models.Model):
     def cretae_Lead(self):
         
         token = self.access_token(self.cleint_id,self.client_secret,self.refresh_token)
+        
         self.access_token_field = token['access_token'] 
         customer = self.env['res.partner'].search([])
         crm_lead = self.env['crm.lead'].search([])
         offset = 0
         while(True):
             data = self.api_call(self.access_token_field,offset)
+            
             for i in data['contacts']:
                 customer = self.env['res.partner'].search([])
                 crm_lead = self.env['crm.lead'].search([])
-                wix_d = i['updatedDate'].split("T")
+                wix_d = i['createdDate'].split("T")
                 time_split = wix_d[1].split(".")
                 p = wix_d[0]+" "+time_split[0]
                 
@@ -102,6 +107,7 @@ class wix(models.Model):
                         else:
                             for k in crm_l[1]:
                                 crm_dic = {
+                                    'site_name':self.site_name,
                                     'wix_ids':k.wix_id, 
                                     'partner_id':k.id,
                                     'name':str(k.zip)+" "+str(k.city)+" "+str(k.street) +" | "+str(k.name) 
@@ -144,6 +150,7 @@ class wix(models.Model):
                                 pass
                             else:
                                 crm_dic ={
+                                'site_name':self.site_name,    
                                 'wix_ids':id.wix_id,
                                 'partner_id':id.id,
                                 'name': str(id.zip)+" "+str(id.city)+" "+str(id.street) +" | "+ str(id.name)

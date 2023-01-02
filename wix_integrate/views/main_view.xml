@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
+    <record id="crm_lead_view_form_inherite" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="site_name"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
     <record id="wix_integrate_view_kanban" model="ir.ui.view">
         <field name="name">wix.crm.view.kanban</field>
         <field name="model">wix.crm</field>
@@ -11,7 +25,7 @@
                         
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click">
                             <div>
-                                <h3 style="text-align: center">WIX</h3>
+                                <h3 style="text-align: center"><field name="site_name"/></h3>
                                 
                             </div>
                             <div class="o_kanban_record_top mb16">
@@ -58,6 +72,7 @@
                         <field name="cleint_id"/>
                         <field name="client_secret"/>
                         <field name="updated_date"/>
+                        <field name="site_name"/>
                 </group>
                     <group>
                     <field name="refresh_token"  />
