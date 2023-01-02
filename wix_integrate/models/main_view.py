@@ -95,6 +95,7 @@ class wix(models.Model):
                     
                     
                     odo_date= self.updated_date
+                    raise UserError(odo_date)
                     if wix_date > odo_date: 
                             
                         #if customer Exist
