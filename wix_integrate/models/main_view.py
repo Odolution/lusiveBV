@@ -117,6 +117,7 @@ class wix(models.Model):
                                         'site_name':self.site_name,
                                         'wix_ids':k.wix_id, 
                                         'partner_id':k.id,
+                                        'type':'opportunity',
                                         'name': zip +" | "+str(k.name) 
                                         }
                                     
@@ -163,6 +164,7 @@ class wix(models.Model):
                                     'site_name':self.site_name,    
                                     'wix_ids':id.wix_id,
                                     'partner_id':id.id,
+                                    'type':'opportunity',    
                                     'name': zip +" | "+ str(id.name)
                                     }
                                     
