@@ -67,7 +67,7 @@ class sale(models.Model):
 # project model
 class project(models.Model):
     _inherit='project.project' 
-
+    meeting_person_id = fields.Many2one("res.partner",related="sale_order_id.partner_shipping_id",string = "Meeting Person")
     project_contact_person= fields.Text(string = 'Contact Person' , related='sale_order_id.sale_contact_person')
     project_todos= fields.Html(string = 'Todos' , related='sale_order_id.sale_todos')
     # project_material_and_tools_ids= fields.Many2many('material.tools', string='Material and Tools' , related='sale_order_id.sale_material_and_tools_ids')
