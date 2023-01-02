@@ -118,7 +118,7 @@ class wix(models.Model):
                                         }
 
                                     s =crm_lead.create(crm_dic)
-                                    raise UserError(str(s))    
+                                     
 
                                 #create Lead
                         else:
@@ -164,7 +164,7 @@ class wix(models.Model):
                                     }
 
                                     l=crm_lead.create(crm_dic)
-                                    raise UserError(str(l))
+                                    
                     else:
                         page = data['pagingMetadata']['hasNext']
                         break                      
