@@ -80,6 +80,7 @@ class wix(models.Model):
         customer = self.env['res.partner'].search([])
         crm_lead = self.env['crm.lead'].search([])
         offset = 0
+        page = ""
         while(True):
             data = self.api_call(self.access_token_field,offset)
             
@@ -141,8 +142,8 @@ class wix(models.Model):
                                 address = add[0]['address']
                                 dic['street'] = address['addressLine']
                                 dic['zip'] = address['postalCode']
-                            if 'city' in address:
                                 dic['city'] = address['city']
+                            
                             id = customer.create(dic)
                             #crm create
                             crm_l = self.check_Lead(i['id'],crm_lead)
