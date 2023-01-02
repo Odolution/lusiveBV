@@ -83,88 +83,88 @@ class wix(models.Model):
         page = ""
         while(True):
             data = self.api_call(self.access_token_field,offset)
-            
-            for i in data['contacts']:
-                customer = self.env['res.partner'].search([])
-                crm_lead = self.env['crm.lead'].search([])
-                wix_d = i['createdDate'].split("T")
-                time_split = wix_d[1].split(".")
-                p = wix_d[0]+" "+time_split[0]
-                
-                wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
-                
-                
-                odo_date= self.updated_date
-                if wix_date > odo_date: 
-                    #if customer Exist
-                    cus_exist = self.check_customer(i['id'],customer)
-                    
-                    if cus_exist[0]:
-                        # check crm Lead
-                        crm_l = self.check_Lead(i['id'],crm_lead)
-                        
-                        if crm_l[0]:
-                            pass
-                        else:
-                            for k in crm_l[1]:
-                                crm_dic = {
-                                    'site_name':self.site_name,
-                                    'wix_ids':k.wix_id, 
-                                    'partner_id':k.id,
-                                    'name':str(k.zip)+" "+str(k.city)+" "+str(k.street) +" | "+str(k.name) 
-                                    }
-                                
-                                s =crm_lead.create(crm_dic)
-                                
-                                
-                            #create Lead
-                    else:
-                        
-                        #customer create
-                        a= i.get('info')
-                        dic ={
-                            'wix_id':i['id']
-                            }
-                         
-                        if 'name' in a:
-                            if 'last' in a['name']:
-                                dic['name'] = a['name']['first'] +" "+ a['name']['last']    
-                            else:
-                                dic['name'] = a['name']['first']
+            if 'contacts' in data:
+                for i in data['contacts']:
+                    customer = self.env['res.partner'].search([])
+                    crm_lead = self.env['crm.lead'].search([])
+                    wix_d = i['createdDate'].split("T")
+                    time_split = wix_d[1].split(".")
+                    p = wix_d[0]+" "+time_split[0]
 
-                            items_email = a['emails']['items']
-                            dic['email'] = items_email[0]['email']
-                            if 'phones' in a:
-                                items_phone = a['phones']['items']
-                                dic['phone'] = items_phone[0]['phone']
-                            if 'addresses' in a:
-                                add = a['addresses']['items']
-                                address = add[0]['address']
-                                dic['street'] = address['addressLine']
-                                dic['zip'] = address['postalCode']
-                                dic['city'] = address['city']
-                            
-                            id = customer.create(dic)
-                            #crm create
+                    wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
+
+
+                    odo_date= self.updated_date
+                    if wix_date > odo_date: 
+                        #if customer Exist
+                        cus_exist = self.check_customer(i['id'],customer)
+
+                        if cus_exist[0]:
+                            # check crm Lead
                             crm_l = self.check_Lead(i['id'],crm_lead)
+
                             if crm_l[0]:
                                 pass
                             else:
-                                crm_dic ={
-                                'site_name':self.site_name,    
-                                'wix_ids':id.wix_id,
-                                'partner_id':id.id,
-                                'name': str(id.zip)+" "+str(id.city)+" "+str(id.street) +" | "+ str(id.name)
+                                for k in crm_l[1]:
+                                    crm_dic = {
+                                        'site_name':self.site_name,
+                                        'wix_ids':k.wix_id, 
+                                        'partner_id':k.id,
+                                        'name':str(k.zip)+" "+str(k.city)+" "+str(k.street) +" | "+str(k.name) 
+                                        }
+
+                                    s =crm_lead.create(crm_dic)
+
+
+                                #create Lead
+                        else:
+
+                            #customer create
+                            a= i.get('info')
+                            dic ={
+                                'wix_id':i['id']
                                 }
-                                
-                                l=crm_lead.create(crm_dic)
-                
-                else:
-                    page = data['pagingMetadata']['hasNext']
-                    break                      
-            
-            if page != False:
-                offset=offset+250
+
+                            if 'name' in a:
+                                if 'last' in a['name']:
+                                    dic['name'] = a['name']['first'] +" "+ a['name']['last']    
+                                else:
+                                    dic['name'] = a['name']['first']
+
+                                items_email = a['emails']['items']
+                                dic['email'] = items_email[0]['email']
+                                if 'phones' in a:
+                                    items_phone = a['phones']['items']
+                                    dic['phone'] = items_phone[0]['phone']
+                                if 'addresses' in a:
+                                    add = a['addresses']['items']
+                                    address = add[0]['address']
+                                    dic['street'] = address['addressLine']
+                                    dic['zip'] = address['postalCode']
+                                    dic['city'] = address['city']
+
+                                id = customer.create(dic)
+                                #crm create
+                                crm_l = self.check_Lead(i['id'],crm_lead)
+                                if crm_l[0]:
+                                    pass
+                                else:
+                                    crm_dic ={
+                                    'site_name':self.site_name,    
+                                    'wix_ids':id.wix_id,
+                                    'partner_id':id.id,
+                                    'name': str(id.zip)+" "+str(id.city)+" "+str(id.street) +" | "+ str(id.name)
+                                    }
+
+                                    l=crm_lead.create(crm_dic)
+
+                    else:
+                        page = data['pagingMetadata']['hasNext']
+                        break                      
+
+                if page != False:
+                    offset=offset+250
             else:
                 self.updated_date =  datetime.now()
                 break            
