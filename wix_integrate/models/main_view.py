@@ -109,7 +109,7 @@ class wix(models.Model):
                                 pass
                             else:
                                 
-                                for k in crm_l[1]:
+                                for k in cus_exist[1]:
                                     zip = ""
                                     if k.zip or k.city or k.street:
                                         zip =str(k.zip)+"-"+str(k.city)+"-"+str(k.street) 
