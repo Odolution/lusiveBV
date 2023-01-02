@@ -90,16 +90,16 @@ class wix(models.Model):
                     wix_d = i['createdDate'].split("T")
                     time_split = wix_d[1].split(".")
                     p = wix_d[0]+" "+time_split[0]
-
-                    wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
-
-
-                    odo_date= self.updated_date
                     
+                    wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
+                    
+                    
+                    odo_date= self.updated_date
                     if wix_date > odo_date: 
+                            
                         #if customer Exist
                         cus_exist = self.check_customer(i['id'],customer)
-
+                        
                         if cus_exist[0]:
                             # check crm Lead
                             crm_l = self.check_Lead(i['id'],crm_lead)
@@ -107,29 +107,30 @@ class wix(models.Model):
                             if crm_l[0]:
                                 pass
                             else:
+                                
                                 for k in crm_l[1]:
                                     zip = ""
                                     if k.zip or k.city or k.street:
-                                        zip =str(k.zip)+"-"+str(k.city)+"-"+str(k.street)
+                                        zip =str(k.zip)+"-"+str(k.city)+"-"+str(k.street) 
                                     crm_dic = {
                                         'site_name':self.site_name,
                                         'wix_ids':k.wix_id, 
                                         'partner_id':k.id,
                                         'name': zip +" | "+str(k.name) 
                                         }
-                                        
+                                    
                                     s =crm_lead.create(crm_dic)
-                                     
-
+                                    
+                                    
                                 #create Lead
                         else:
-
+                            
                             #customer create
                             a= i.get('info')
                             dic ={
                                 'wix_id':i['id']
                                 }
-
+                            
                             if 'name' in a:
                                 if 'last' in a['name']:
                                     dic['name'] = a['name']['first'] +" "+ a['name']['last']    
@@ -147,14 +148,14 @@ class wix(models.Model):
                                     dic['street'] = address['addressLine']
                                     dic['zip'] = address['postalCode']
                                     dic['city'] = address['city']
-                                
+                                # if 'city' in address:
+                                #     dic['city'] = address['city']
                                 id = customer.create(dic)
                                 #crm create
                                 crm_l = self.check_Lead(i['id'],crm_lead)
                                 if crm_l[0]:
                                     pass
                                 else:
-                                    zip = ""
                                     if id.zip or id.city or id.street:
                                         zip =str(id.zip)+"-"+str(id.city)+"-"+str(id.street)
                                     crm_dic ={
@@ -169,16 +170,18 @@ class wix(models.Model):
                     else:
                         page = data['pagingMetadata']['hasNext']
                         break                      
-
+                
+                
                 if page != False:
                     offset=offset+250
                 else:
                     self.updated_date =  datetime.now()
                     break
-                    
+
             else:
                 self.updated_date =  datetime.now()
                 break            
+  
     
 
                               
