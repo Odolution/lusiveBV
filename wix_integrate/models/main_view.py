@@ -117,7 +117,7 @@ class wix(models.Model):
                                         'partner_id':k.id,
                                         'name': zip +" | "+str(k.name) 
                                         }
-                                    raise UserError(crm_dic)     
+                                        
                                     s =crm_lead.create(crm_dic)
                                      
 
@@ -163,7 +163,7 @@ class wix(models.Model):
                                     'partner_id':id.id,
                                     'name': zip +" | "+ str(id.name)
                                     }
-                                    raise UserError(crm_dic)
+                                    
                                     l=crm_lead.create(crm_dic)
                                     
                     else:
