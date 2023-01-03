@@ -188,7 +188,7 @@ class wix(models.Model):
    
 
     def cretae_Lead(self):
-        raise UserError(str(self.cleint_id))
+        
         token = self.access_token(self.cleint_id,self.client_secret,self.refresh_token)
         
         self.access_token_field = token['access_token'] 
