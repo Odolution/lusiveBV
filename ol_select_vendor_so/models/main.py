@@ -18,16 +18,15 @@ class InheritPurchaseOrder(models.Model):
     def sale_icon_show(self):
         for rec in self:
             sale_order = rec.SO_id.id
-            if len(sale_order) == 1:
-                return {
-                    'name': 'Sale Order',
-                    'view_type': 'form',
-                    'view_mode': 'form',
-                    'res_model': 'sale.order',
-                    'view_id': False,
-                    'type': 'ir.actions.act_window',
-                    'res_id': sale_order[0],
-                }
+            return {
+                'name': 'Sale Order',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'sale.order',
+                'view_id': False,
+                'type': 'ir.actions.act_window',
+                'res_id': sale_order,
+            }
 
 class Inheritssaleorder(models.Model):
     _inherit = 'sale.order'
