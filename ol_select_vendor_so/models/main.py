@@ -18,6 +18,8 @@ class InheritPurchaseOrder(models.Model):
     def sale_icon_show(self):
         for rec in self:
             sale_order = rec.SO_id.id
+            # raise UserError(str(sale_order))
+            # if sale_order == 1:
             return {
                 'name': 'Sale Order',
                 'view_type': 'form',
@@ -142,7 +144,13 @@ class Inheritssaleorder(models.Model):
 
 
 
-        
+class CustomSaleOrderFormat(models.TransientModel):
+    _name = 'sale.custom.format'
+
+    sale_order_format = fields.Selection([
+        ('default', 'Default Format'),
+        ('custom', 'Custom Format'),
+    ], required=True, default='default')
 
 
 class InheritProject(models.Model):

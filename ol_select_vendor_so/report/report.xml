@@ -22,6 +22,30 @@
 <!--        <field name="binding_type">report</field>-->
 <!--    </record>-->
 
-
+        
+        <!-- <report 
+            id = "custom_sale_order_report_report"
+            model = "sale.order"
+            string = "Custom Sale Order Report"
+            name = "ol_select_vendor_so.custom_report_saleorder"
+            file = "ol_select_vendor_so.custom_report_saleorder"
+            report_type="qweb-pdf"
+        />
+        <report 
+            id = "custom_sale_order_report_report_document"
+            model = "sale.order"
+            string = "Custom Sale Order Report Document"
+            name = "ol_select_vendor_so.custom_report_saleorder_document"
+            file = "ol_select_vendor_so.custom_report_saleorder_document"
+            report_type="qweb-pdf"
+        /> -->
+        <report 
+            id = "custom_sale_order_report"
+            model = "sale.order"
+            string = "Sale Order Without Details"
+            name = "ol_select_vendor_so.custom_sale_order"
+            file = "ol_select_vendor_so.custom_sale_order"
+            report_type="qweb-pdf"
+        />
         </data>
         </odoo>

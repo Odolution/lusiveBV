@@ -19,6 +19,8 @@
     'data': [
         'views/ol_lu.xml',
         'views/product_custom_view.xml',
+        'report/sale_order_without_details.xml',
+        'report/report.xml',
 
 
         # 'security/ir.model.access.csv',

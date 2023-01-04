@@ -25,13 +25,9 @@
     
     
         <template id="sale_agreement">
-        <!-- <t-call="web.basic_layout"> -->
         <t t-call="web.html_container">
          <t t-foreach="docs" t-as="s">
-<!--        <div style=" border: 1px solid black;height:50px;width:50px;margin-top:0px">-->
-<!--        -->
-<!--        -->
-<!--        </div>-->
+
              <table>
                  <tr>
                      <td>
