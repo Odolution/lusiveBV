@@ -71,6 +71,121 @@ class wix(models.Model):
         response = requests.request("POST", url, headers=headers, data=payload).json()
         
         return response
+    def create_lead_schdule(self):
+        wix_crms= self.env['wix.crm'].search([])
+
+        for wix_crm in wix_crms:
+            token = self.access_token(wix_crm.cleint_id,wix_crm.client_secret,wix_crm.refresh_token)
+            
+            wix_crm.access_token_field = token['access_token'] 
+            customer = self.env['res.partner'].search([])
+            crm_lead = self.env['crm.lead'].search([])
+            offset = 0
+            page = ""
+            while(True):
+                data = self.api_call(wix_crm.access_token_field,offset)
+                if 'contacts' in data:
+                    for i in data['contacts']:
+                        customer = self.env['res.partner'].search([])
+                        crm_lead = self.env['crm.lead'].search([])
+                        wix_d = i['createdDate'].split("T")
+                        time_split = wix_d[1].split(".")
+                        p = wix_d[0]+" "+time_split[0]
+                        
+                        wix_date = datetime.strptime(p, '%Y-%m-%d %H:%M:%S')
+                        
+                        
+                        odo_date= wix_crm.updated_date
+                        
+                        if wix_date > odo_date: 
+                                
+                            #if customer Exist
+                            cus_exist = self.check_customer(i['id'],customer)
+                            
+                            if cus_exist[0]:
+                                # check crm Lead
+                                crm_l = self.check_Lead(i['id'],crm_lead)
+                                
+                                if crm_l[0]:
+                                    pass
+                                else:
+                                    
+                                    for k in cus_exist[1]:
+                                        zip = ""
+                                        if k.zip or k.city or k.street:
+                                            zip =str(k.zip)+"-"+str(k.city)+"-"+str(k.street) 
+                                        crm_dic = {
+                                            'site_name':self.site_name,
+                                            'wix_ids':i['id'], 
+                                            'partner_id':k.id,
+                                            'type':'opportunity',
+                                            'name': zip +" | "+str(k.name) 
+                                            }
+                                        
+                                        s =crm_lead.create(crm_dic)
+                                        
+                                        
+                                    #create Lead
+                            else:
+                                
+                                #customer create
+                                a= i.get('info')
+                                dic ={
+                                    'wix_id':i['id']
+                                    }
+                                
+                                if 'name' in a:
+                                    if 'last' in a['name']:
+                                        dic['name'] = a['name']['first'] +" "+ a['name']['last']    
+                                    else:
+                                        dic['name'] = a['name']['first']
+
+                                    items_email = a['emails']['items']
+                                    dic['email'] = items_email[0]['email']
+                                    if 'phones' in a:
+                                        items_phone = a['phones']['items']
+                                        dic['phone'] = items_phone[0]['phone']
+                                    if 'addresses' in a:
+                                        add = a['addresses']['items']
+                                        address = add[0]['address']
+                                        dic['street'] = address['addressLine']
+                                        dic['zip'] = address['postalCode']
+                                        
+                                    if 'city' in address:
+                                        dic['city'] = address['city']
+                                    id = customer.create(dic)
+                                    #crm create
+                                    crm_l = self.check_Lead(i['id'],crm_lead)
+                                    if crm_l[0]:
+                                        pass
+                                    else:
+                                        if id.zip or id.city or id.street:
+                                            zip =str(id.zip)+"-"+str(id.city)+"-"+str(id.street)
+                                        crm_dic ={
+                                        'site_name':self.site_name,    
+                                        'wix_ids':i['id'],
+                                        'partner_id':id.id,
+                                        'type':'opportunity',    
+                                        'name': zip +" | "+ str(id.name)
+                                        }
+                                        
+                                        l=crm_lead.create(crm_dic)
+                                        
+                        else:
+                            page = data['pagingMetadata']['hasNext']
+                            break                      
+                    
+                    
+                    if page != False:
+                        offset=offset+250
+                    else:
+                        self.updated_date =  datetime.now()
+                        break
+
+                else:
+                    self.updated_date =  datetime.now()
+                    break     
+   
 
     def cretae_Lead(self):
         
@@ -109,13 +224,13 @@ class wix(models.Model):
                                 pass
                             else:
                                 
-                                for k in crm_l[1]:
+                                for k in cus_exist[1]:
                                     zip = ""
                                     if k.zip or k.city or k.street:
                                         zip =str(k.zip)+"-"+str(k.city)+"-"+str(k.street) 
                                     crm_dic = {
                                         'site_name':self.site_name,
-                                        'wix_ids':k.wix_id, 
+                                        'wix_ids':i['id'], 
                                         'partner_id':k.id,
                                         'type':'opportunity',
                                         'name': zip +" | "+str(k.name) 
@@ -149,9 +264,9 @@ class wix(models.Model):
                                     address = add[0]['address']
                                     dic['street'] = address['addressLine']
                                     dic['zip'] = address['postalCode']
+#                                     dic['city'] = address['city']
+                                if 'city' in address:
                                     dic['city'] = address['city']
-                                # if 'city' in address:
-                                #     dic['city'] = address['city']
                                 id = customer.create(dic)
                                 #crm create
                                 crm_l = self.check_Lead(i['id'],crm_lead)
@@ -162,7 +277,7 @@ class wix(models.Model):
                                         zip =str(id.zip)+"-"+str(id.city)+"-"+str(id.street)
                                     crm_dic ={
                                     'site_name':self.site_name,    
-                                    'wix_ids':id.wix_id,
+                                    'wix_ids':i['id'],
                                     'partner_id':id.id,
                                     'type':'opportunity',    
                                     'name': zip +" | "+ str(id.name)
