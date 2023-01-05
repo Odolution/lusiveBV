@@ -9,22 +9,24 @@
     </template>
    <template id="inherit_report_simple_label_dymo" inherit_id="product.report_simple_label_dymo">
         <xpath expr="//div[@class='o_label_full']" position="replace">
-                    <div class="row" style="position:absolute; top:10px;left:40px;  ">
-                        <div class= "col-12" style="text-align: center; justify-content:center;">
-                            <t t-if="barcode" >
-                                <!--`quiet=0` to remove the left and right margins on the barcode -->
-                                <div  t-out="barcode" style="padding:0; " t-options="{'widget': 'barcode', 'quiet': 3, 'symbology': 'auto', 'img_style': barcode_size}"/>
-                                <div class="o_label_name" style="background-color: transparent;line-height: 1; text-align: center; font-size:6px;">
-                                    <!-- <span style=" font-size:12px;  justify-content:center;" t-out="barcode"/> -->
-                                    <!-- <br/> -->
-                                    <span style=" font-size:12px;  justify-content:center;" t-if="product.is_product_variant" t-field="product.display_name"/>
-                                    <span style=" font-size:12px;  justify-content:center; line-height: 1 ;" t-else="" t-field="product.name"/>
-                                    <br/>
-                                    <span style="font-size:9px;  justify-content:center;" t-field="product.put_away_location"/>
-                                    
-                                </div>
-                            </t>
-                        </div>
+                     <div>
+                       <div class="row" style="position:absolute; top:10px;left:40px;  ">
+                           <div class= "col-12" style="text-align: center; justify-content:center;">
+                               <t t-if="barcode" >
+                                   <!--`quiet=0` to remove the left and right margins on the barcode -->
+                                   <div  t-out="barcode" style="padding:0; " t-options="{'widget': 'barcode', 'quiet': 3, 'symbology': 'auto', 'img_style': barcode_size}"/>
+                                   <div class="o_label_name" style="background-color: transparent;line-height: 1; text-align: center; font-size:6px;">
+                                       <!-- <span style=" font-size:12px;  justify-content:center;" t-out="barcode"/> -->
+                                       <!-- <br/> -->
+                                       <span style=" font-size:12px;  justify-content:center;" t-if="product.is_product_variant" t-field="product.display_name"/>
+                                       <span style=" font-size:12px;  justify-content:center; line-height: 1 ;" t-else="" t-field="product.name"/>
+                                       <br/>
+                                       <span style="font-size:9px;  justify-content:center;" t-field="product.put_away_location"/>
+
+                                   </div>
+                               </t>
+                           </div>
+                       </div>
                     </div>
                     <!-- <div class="row">
                         <div class ="col-1"></div>
