@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <templates id="template" xml:space="preserve">
+        <t t-inherit="calendar.Calendar.calendar-box" t-inherit-mode="extension">
+            <xpath expr="//div//div[hasclass('o_event_title')]" position="before">
+                <t t-if="record.show_as == 'busy'">
+                    <div style="height: 6px; width: 100%;  background-color: #FF0000;" ></div>    
+                </t>
+                <t t-elif="record.show_as == 'free'">
+                    <div style="height: 6px; width: 100%;  background-color: #00FF00;" ></div>
+                </t>
+                <t t-elif="record.show_as == 'working_elsewhere'">
+                    <div style="height: 6px; width: 100%;  background-color: #C0C0C0;"></div>
+                </t>
+                <t t-elif="record.show_as == 'out_of_office'">
+                    <div style="height: 6px; width: 100%;  background-color: #FFFF00;"></div>
+                </t>
+                <t t-elif="record.show_as == 'tentative'">
+                    <div style="height: 6px; width: 100%;  background-color: #00FFFF;"></div>
+                </t>
+                <t t-else="">
+                    
+                </t>
+                
+                
+            </xpath>
+        </t>
+    
+        
+    </templates>
+    

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="view_calendar_event_calendar_inherite" model="ir.ui.view">
+        <field name="name">calendar.event.calendar</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_ids']" position="after">
+                <field name="show_as" />
+
+               
+            </xpath>
+        </field>
+    </record>
+        
+    <record id="inherit_view_calendar_event_form" model="ir.ui.view">
+        <field name="name">calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='page_options']//field[@name='show_as']" position="replace">
+                <field name="show_as" decoration-success="show_as == 'free'" decoration-warning="show_as == 'out_of_office'" decoration-info="show_as == 'tentative'" decoration-danger="show_as == 'busy'" decoration-muted="show_as == 'working_elsewhere'"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
