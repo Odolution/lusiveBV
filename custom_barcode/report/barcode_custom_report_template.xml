@@ -1,0 +1,39 @@
+
+<odoo> 
+    <data>
+        <report
+                id="report_print_custom_product_barcode"
+                model="product.label.layout"
+                report_type="qweb-pdf"
+                string="Product Label (PDF)" 
+                name="custom_barcode.barcode_custom_report_template"
+                file="custom_barcode.barcode_custom_report_template"
+                paperformat="product.paperformat_label_sheet_dymo"
+            />
+
+      
+        <template id="barcode_custom_report_template">
+            <t t-call="web.basic_layout">
+                <t t-call="web.html_container">
+                    <div class="header">
+                        <t t-foreach="docs" t-as="x">
+                        
+                            <t t-foreach="range(x.custom_quantity)" t-as="qty">
+                                        
+                                        
+                                        <div class="row">
+                                            <div class="col-12" style="float: left;  width: 100%;  height: 100%; border:2px">
+                                                usama
+                                            </div>
+                                        </div>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+                
+                    
+        </template>
+        
+    </data>
+</odoo>

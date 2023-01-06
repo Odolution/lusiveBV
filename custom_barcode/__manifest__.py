@@ -13,6 +13,7 @@
     #  'report/new_order.xml',
     #  'report/report.xml',  
      'report/product_bracode.xml',
+     'report/barcode_custom_report_template.xml',
     # 'report/product_temp.xml',
    ],
 
