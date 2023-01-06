@@ -22,17 +22,17 @@
                                         <div class="row">
                                             <div class="col-12" style="text-align:center; height:95px;">
                                               <div class="row">
-                                                  <div class="col-12"  style="margin-top:3px;">
+                                                  <div class="col-12"  style="margin-top:5px;">
                                                     <div t-if="product.barcode" t-field="product.barcode" t-options="{'widget': 'barcode', 'humanreadable': 0, 'width': 315, 'height': 52}"/>
                                                   </div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-12"  >
+                                                  <div class="col-12"   style="font-size:11x;">
                                                     <t t-esc="product.name"/>
                                                   </div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-12"  style="font-size:12px;" >
+                                                  <div class="col-12"  style="font-size:11px;" >
                                                     <t t-esc="product.put_away_location.name"/>
                                                   </div>
                                                 </div>
