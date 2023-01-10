@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                        <div  t-esc="(o['x_studio_description_1'].split(':')[-1].split(' ')[-1] if o['product_id']['name']=='MTO' else o['product_id']['name'])"/>
+                                        <div  t-esc="(( o['product_id']['name']+ ' | '+ o['x_studio_description_1'].split(':')[-1]) if o['product_id']['name']=='MTO' else o['product_id']['name'])"/>
                                     
                                         </div>
                                     </div>
