@@ -1,0 +1,57 @@
+
+<odoo> 
+    <data>
+    <record id="report_print_custom_print_label" model="ir.actions.report">
+        <field name="name">Product Lot Label (PDF)</field>
+        <field name="model">label.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">print_label_custom.printlabel_custom_report_template</field>
+        <field name="report_file">print_label_custom.printlabel_custom_report_template</field>
+        <field name="binding_model_id" ref="model_label_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+        <template id="printlabel_custom_report_template">
+            <t t-call="web.basic_layout">
+              <div class="page">
+                        <t t-foreach="range(custom_quantity)" t-as="qty">
+                        <t t-foreach="docs._prepare_data(active_model,ids)" t-as="o">
+                       
+                              
+                                      
+                                <div class="row">
+                                <div class="col-12" style="text-align:center; height:95px; line-height:1.2">
+                                    
+                                    <div class="row">
+                                        <div class="col-12" style="margin-top:5px;">
+                                        <div t-esc="o.lot_id.name if o['product_id']['name']=='MTO' else o['product_id']['name']" t-options="{'widget': 'barcode', 'humanreadable': 0, 'width': 315, 'height': 52}"/>
+                                    
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                        <div  t-esc="(o['x_studio_description_1'].split(':')[-1].split(' ')[-1] if o['product_id']['name']=='MTO' else o['product_id']['name'])"/>
+                                    
+                                        </div>
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                            </div>
+                    
+                       </t>
+                  </t>
+
+
+              
+              </div>
+            </t>
+                
+                    
+                
+                    
+        </template>
+        
+    </data>
+</odoo>

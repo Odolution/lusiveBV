@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<odoo>
+    <record id="stock_picking_form_inherit_button" model="ir.ui.view">
+    <field name="name">stock.picking.print_label</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//button[@name='action_open_label_layout']" position="after">
+
+             <button name="custom_print_label"  type="object" string=" Print Labels"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_form_hide_button" model="ir.ui.view">    
+    <field name="name">stock.picking.hide.print_label</field>    
+    <field name="model">stock.picking</field>    
+    <field name="inherit_id" ref="stock.view_picking_form"/>    
+    <field name="arch" type="xml">        
+        <xpath expr="//button[@name='action_open_label_layout']" position="attributes">            
+            <attribute name="invisible">1</attribute>        
+        </xpath>   
+    </field>
+    </record>
+   
+</odoo>
