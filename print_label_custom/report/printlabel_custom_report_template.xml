@@ -9,6 +9,7 @@
         <field name="report_file">print_label_custom.printlabel_custom_report_template</field>
         <field name="binding_model_id" ref="model_label_report_wizard"/>
         <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="product.paperformat_label_sheet_dymo"/>
     </record>
     
         <template id="printlabel_custom_report_template">
