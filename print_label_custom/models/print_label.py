@@ -23,7 +23,7 @@ class inheritStockPicking(models.Model):
 class inheritStockPicking(models.Model):
     _inherit = 'stock.location'
 
-    @api.onchange('location_id')
+   
     def generate_barcode(self):
        
         if not self['barcode']:
