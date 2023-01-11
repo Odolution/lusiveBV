@@ -19,3 +19,17 @@ class inheritStockPicking(models.Model):
                 'default_move_line_ids': self.move_line_ids.ids,
                 'default_picking_quantity': 'picking'},
         }
+
+class inheritStockPicking(models.Model):
+    _inherit = 'stock.location'
+
+    def generate_barcode(self):
+        for rec in self:
+            if not rec['barcode']:
+                if "Pickup" or "PZ" in rec.loaction_id.name:
+                    rec['barcode']=self.env["ir.sequence"].next_by_code('location.pickup.barcode')
+                if "Stock" or "WH" in rec.loaction_id.name:
+                    rec['barcode']=self.env["ir.sequence"].next_by_code('location.stock.barcode')
+
+
+
