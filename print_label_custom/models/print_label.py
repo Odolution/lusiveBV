@@ -23,13 +23,15 @@ class inheritStockPicking(models.Model):
 class inheritStockPicking(models.Model):
     _inherit = 'stock.location'
 
+    @api.onchange('location_id')
     def generate_barcode(self):
-        for rec in self:
-            if not rec['barcode']:
-                if "Pickup" or "PZ" in rec.loaction_id.name:
-                    rec['barcode']=self.env["ir.sequence"].next_by_code('location.pickup.barcode')
-                if "Stock" or "WH" in rec.loaction_id.name:
-                    rec['barcode']=self.env["ir.sequence"].next_by_code('location.stock.barcode')
+       
+        if not self['barcode']:
+            if self.location_id:
+                if self.location_id.name=="Pickup" or "PZ" in self.location_id.name:
+                    self['barcode']=self.env["ir.sequence"].next_by_code('location.pickup.barcode')
+                elif self.location_id.name=="Stock" or "WH" in self.location_id.name:
+                    self['barcode']=self.env["ir.sequence"].next_by_code('location.stock.barcode')
 
 
 
